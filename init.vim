@@ -44,7 +44,6 @@ Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
-Plug 'dense-analysis/ale'
 Plug 'ap/vim-css-color'
 Plug 'Yggdroot/indentLine'
 Plug 'editor-bootstrap/vim-bootstrap-updater'
@@ -53,7 +52,6 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tomasr/molokai'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 
 if isdirectory('/usr/local/opt/fzf')
@@ -200,8 +198,6 @@ else
   
 endif
 
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 
 "" Disable the blinking cursor.
@@ -393,33 +389,6 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 
-" ale
-let g:jsx_ext_required = 0
-
-let g:ale_linters = {
-\   'javascript': ['standard'],
-\}
-
-let g:ale_fixers = {
-\   'html': ['prettier'],
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
-\   'javascript.jsx': ['prettier'], 
-\   'typescript': ['prettier'],  
-\   'typescript.tsx': ['prettier']
-\}
-
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-let g:ale_linters_explicit = 1
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_options = '--no-semi --single-quote --trailing-comma none'
-
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -515,6 +484,9 @@ endif
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='solarized_flood'
 
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
