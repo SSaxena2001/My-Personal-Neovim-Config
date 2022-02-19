@@ -52,7 +52,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tomasr/molokai'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-
+Plug 'yardnsm/vim-import-cost', { 'do': 'npm install --production' }
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -87,10 +87,10 @@ Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 
 "" HTML CloseTag 
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
-let g:closetag_filetypes = 'html,xhtml,phtml'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js,*.ts,*.tsx'
+let g:closetag_filetypes = 'html,xhtml,phtml,jsx,js,tsx,ts'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,js,tsx,ts'
 let g:closetag_emptyTags_caseSensitive = 1
 
 let g:closetag_shortcut = '>'
@@ -567,3 +567,10 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \}
+
+augroup import_cost_auto_run
+  autocmd!
+  autocmd InsertLeave *.js,*.jsx,*.ts,*.tsx ImportCost
+  autocmd BufEnter *.js,*.jsx,*.ts,*.tsx ImportCost
+  autocmd CursorHold *.js,*.jsx,*.ts,*.tsx ImportCost
+augroup END
