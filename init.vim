@@ -53,6 +53,7 @@ Plug 'tomasr/molokai'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'yardnsm/vim-import-cost', { 'do': 'npm install --production' }
+Plug 'vim-syntastic/syntastic'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -574,3 +575,19 @@ augroup import_cost_auto_run
   autocmd BufEnter *.js,*.jsx,*.ts,*.tsx ImportCost
   autocmd CursorHold *.js,*.jsx,*.ts,*.tsx ImportCost
 augroup END
+
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
+
+" run code
+augroup compileandrun
+    autocmd!
+    autocmd filetype python nnoremap <f5> :w <bar> :!python3 % <cr>
+    autocmd filetype cpp nnoremap <f5> :w <bar> !g++ -std=c++11 % <cr> :vnew <bar> :te "a.exe" <cr><cr>
+    autocmd filetype cpp nnoremap <f6> :vnew <bar> :te "a.exe" <cr>
+    autocmd filetype c nnoremap <f5> :w <bar> !make %:r && ./%:r <cr>
+    autocmd filetype java nnoremap <f5> :w <bar> !javac % && java %:r <cr>
+augroup END
+
+set path=~/scoop/apps/mingw/8.1.0/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++
